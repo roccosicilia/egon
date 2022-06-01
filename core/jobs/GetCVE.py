@@ -25,6 +25,6 @@ cvelist = json.loads(cvelist.text)
 for CVE_Item in cvelist["result"]["CVE_Items"]:
     #print(CVE_Item["cve"]["CVE_data_meta"])
     cveid = CVE_Item["cve"]["CVE_data_meta"]["ID"]
-    query_addcve = "INSERT INTO cve_list (cveid) VALUES ({})".format(cveid)
+    query_addcve = "INSERT INTO cve_list (cveid) VALUES ('{}')".format(cveid)
     mycursor.execute(query_addcve)
     mydb.commit()
