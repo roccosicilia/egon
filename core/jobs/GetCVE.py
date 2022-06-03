@@ -19,7 +19,7 @@ def debug(msg):
     now = datetime.now()
     current_time = now.strftime("%Y/%m/%d %H:%M:%S")
     debug_file = open(cfg.log["debug"], 'a')
-    debug_file.write("[{}] {}".format(current_time, msg))
+    debug_file.write("[{}] {}\n".format(current_time, msg))
     debug_file.close()
 
 # base setup
