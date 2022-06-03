@@ -1,3 +1,7 @@
+log = {
+    "debug": "/var/log/egon/debug.log"
+}
+
 db = {
     "host": "localhost",
     "database": "egon",
