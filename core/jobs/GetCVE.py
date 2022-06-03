@@ -10,6 +10,8 @@ import sys
 import json
 import requests
 import time
+
+from sqlalchemy import null
 import config as cfg
 import mysql.connector
 from datetime import datetime
@@ -34,7 +36,19 @@ except:
     debug("Error: CVE list non available.")
 
 for CVE_Item in cvelist["result"]["CVE_Items"]:
+    # base CVE data
     cveid = CVE_Item["cve"]["CVE_data_meta"]["ID"]
+    assigner = CVE_Item["cve"]["CVE_data_meta"]["ASSIGNER"]
+    publishedDate = CVE_Item["publishedDate"]
+    lastModifiedDate = CVE_Item["lastModifiedDate"]
+
+    # impact data
+    try:
+        cvss3attackVector = CVE_Item["impact"]["baseMetricV3"]["cvssV3"]["attackVector"]
+    except:
+        cvss3attackVector = null
+
+    # insert data
     query_addcve = "INSERT INTO cve_list (cveid) VALUES ('{}')".format(cveid)
     mycursor.execute(query_addcve)
     mydb.commit()
